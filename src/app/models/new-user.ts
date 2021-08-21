@@ -5,5 +5,11 @@ export class NewUser {
   name: string;
   password: string;
   local: Local;
-  authorities: string[];
+
+  constructor(dni: string, name: string, password: string, local: Local) {
+    this.dni = dni;
+    this.name = name;
+    this.password = password;
+    this.local = local;
+  }
 }

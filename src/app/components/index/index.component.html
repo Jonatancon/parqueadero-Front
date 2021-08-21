@@ -1,1 +1,11 @@
-<p>index works!</p>
+<app-navbar></app-navbar>
+
+<div class="container text-center">
+  <div *ngIf="isLogged; else loggedOut">
+    aqui va el menu del parqueadero
+  </div>
+
+  <ng-template #loggedOut>
+      Inicia sección para poder manejar el parqueadero
+  </ng-template>
+</div>

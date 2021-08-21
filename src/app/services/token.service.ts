@@ -1,53 +1,59 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Router} from "@angular/router";
 
 const TOKEN_KEY = 'AuthToken';
-const DNI_KEY = 'AuthDni';
-const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  roles: Array<string> = [];
-
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   public setToken (token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken (): string {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
-  public setDni (dni: string): void {
-    window.sessionStorage.removeItem(DNI_KEY);
-    window.sessionStorage.setItem(DNI_KEY, dni);
+  public isLogged(): boolean {
+    return !!this.getToken();
+
   }
 
   public getDni (): string {
-    return sessionStorage.getItem(DNI_KEY);
-  }
-
-  public setAuthorities (authorities: string[]): void {
-    window.sessionStorage.removeItem(AUTHORITIES_KEY);
-    window.sessionStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
-  }
-
-  public getAuthorities (): string[] {
-    this.roles = [];
-
-    if (sessionStorage.getItem(AUTHORITIES_KEY)) {
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
-        this.roles.push(authority.authority)
-      });
+    if (!this.isLogged()) {
+      return null;
     }
-    return this.roles;
+    const token = this.getToken();
+    const payLoad = token.split('.')[1];
+    const payLoadDecoded = atob(payLoad);
+    const values = JSON.parse(payLoadDecoded);
+
+    return values.sup;
+  }
+
+  public isAdmin (): boolean {
+    if (!this.isLogged()) {
+      return false;
+    }
+    const token = this.getToken();
+    const payLoad = token.split('.')[1];
+    const payLoadDecoded = atob(payLoad);
+    const values = JSON.parse(payLoadDecoded);
+    const roles = values.roles;
+
+    return roles.indexOf('ROLE_ADMIN') >= 0;
+
   }
 
   public logOut (): void {
-    window.sessionStorage.clear();
+    window.localStorage.clear();
+    this.router.navigate(['/login']);
   }
 }
