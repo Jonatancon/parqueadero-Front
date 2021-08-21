@@ -21,7 +21,7 @@ export class ProdGuardService implements CanActivate{
     this.realRol = this.tokenService.isAdmin() ? 'admin' : 'user';
 
     if (!this.tokenService.isLogged() || expectedRol.indexOf(this.realRol) < 0) {
-      this.router.navigate(['/']); // Agregar una web para esta problema.
+      this.router.navigate(['/error']);
       return false;
     }
     return true;
