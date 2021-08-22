@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="container text-center">
-  <div *ngIf="!isLogged; else loggedOut">
+  <div *ngIf="isLogged; else loggedOut">
     <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
@@ -16,7 +16,7 @@
                   <fa-icon [icon]="plusSquare" ></fa-icon> Configurar Parqueadero
                 </button>
               </div>
-              <h5 class="my-3">Codigo Parqueadero</h5>
+              <h5 class="my-3">Codigo Parqueadero: {{local.id}}</h5>
               <div class="fm-menu">
                 <div class="list-group list-group-flush">
                   <button class="btn btn-outline-secondary list-group-item-success py-1 mb-1">
@@ -31,11 +31,11 @@
           </div>
           <div class="card">
             <div class="card-body">
-              <h5 class="mb-0 text-primary font-weight-bold">Celda <span class="float-end text-secondary">Celda</span></h5>
+              <h5 class="mb-0 text-primary font-weight-bold">{{local.occupiedPlaces}} <span class="float-end text-secondary">{{local.availableSpace}}</span></h5>
               <p class="mb-0 mt-2"><span class="text-secondary">Ocupados</span><span class="float-end text-primary">Disponibles</span>
               </p>
               <div class="progress mt-3" style="height:7px;">
-                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="{{local.occupiedPlaces + local.reservedPlaces}}" aria-valuemin="0" aria-valuemax="{{local.totalPlaces}}"></div>
               </div>
               <div class="mt-3"></div>
               <div class="d-flex align-items-center">
@@ -45,7 +45,7 @@
                 <div class="flex-grow-1 ms-2">
                   <h6 class="mb-0">Cupos Ocupados</h6>
                 </div>
-                <h6 class="text-primary mb-0">15.3 GB</h6>
+                <h6 class="text-primary mb-0">{{local.occupiedPlaces}}</h6>
               </div>
               <div class="d-flex align-items-center mt-3">
                 <div class="fm-file-box bg-light-success text-danger">
@@ -54,7 +54,7 @@
                 <div class="flex-grow-1 ms-2">
                   <h6 class="mb-0">Cupos Reservados</h6>
                 </div>
-                <h6 class="text-primary mb-0">256 MB</h6>
+                <h6 class="text-primary mb-0">{{local.reservedPlaces}}</h6>
               </div>
               <div class="d-flex align-items-center mt-3">
                 <div class="fm-file-box bg-light-danger text-info">
@@ -63,7 +63,7 @@
                 <div class="flex-grow-1 ms-2">
                   <h6 class="mb-0">Total Cupos</h6>
                 </div>
-                <h6 class="text-primary mb-0">3.4 GB</h6>
+                <h6 class="text-primary mb-0">{{local.totalPlaces}}</h6>
               </div>
             </div>
           </div>

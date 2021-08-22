@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  authURL: 'http://localhost:8080/auth/'
+  authURL: 'http://localhost:8080/auth/',
+  localUrl: 'http://localhost:8080/api/local/',
+  carUrl: 'http://localhost:8080/api/car/',
+  cellUrl: 'http://localhost:8080/api/cell/',
+  contractUrl: 'http://localhost:8080/api/contract/',
+  ownerUrl: 'http://localhost:8080/api/owner/',
+  parkingUrl: 'http://localhost:8080/api/parking/'
 };
 
 /*
