@@ -9,6 +9,8 @@ import {Observable} from "rxjs";
 })
 export class ParkingService {
 
+  idPago: number;
+
   parkingUrl = environment.parkingUrl;
 
   constructor(private httpClient: HttpClient) { }
@@ -27,5 +29,9 @@ export class ParkingService {
 
   public update(parking: Parking): Observable<any> {
     return this.httpClient.post<any>(this.parkingUrl + 'update', parking);
+  }
+
+  public idPay(id:number): void {
+    this.idPago = id;
   }
 }

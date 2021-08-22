@@ -1,0 +1,21 @@
+<mat-card>
+  <mat-card-title class="text-center">
+    <h1 mat-dialog-title class="text-info">Informacion del Propietario</h1>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <mat-label>DNI DEl PROPIETARIO</mat-label>
+    <h5>{{data.car.owner.dni}}</h5>
+    <mat-divider></mat-divider>
+    <mat-label>NOMBRE DEl PROPIETARIO</mat-label>
+    <h5>{{data.car.owner.name}}</h5>
+    <mat-divider></mat-divider>
+    <mat-label>TIPO DE CONTRATO</mat-label>
+    <h5>{{data.car.contract.name}}</h5>
+  </mat-card-content>
+</mat-card>
+<div mat-dialog-actions>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" class="" (click)="onNoClick()">OK</button>
+  </mat-card-actions>
+</div>

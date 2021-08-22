@@ -2,40 +2,45 @@
 
 <div class="container text-center">
   <div *ngIf="isLogged; else loggedOut">
-    <link href="https://cdn.lineicons.com/3.0/lineicons.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 
     <div class="container">
       <div class="row">
         <div class="col-12 col-lg-3">
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-body">
               <div class="d-grid">
                 <button routerLink="" class="btn btn-outline-primary">
-                  <fa-icon [icon]="plusSquare" ></fa-icon> Configurar Parqueadero
+                  <fa-icon [icon]="plusSquare"></fa-icon>
+                  Configurar Parqueadero
                 </button>
               </div>
               <h5 class="my-3">Codigo Parqueadero: {{local.id}}</h5>
               <div class="fm-menu">
                 <div class="list-group list-group-flush">
-                  <button class="btn btn-outline-secondary list-group-item-success py-1 mb-1">
-                    <fa-icon [icon]="plusCircle"></fa-icon> Agregar Un Carro</button>
-                  <button class="btn btn-outline-secondary list-group-item-success py-1 mb-1">
-                    <fa-icon [icon]="plusCircle"></fa-icon> Agregar Un Propietario</button>
-                  <button class="btn btn-outline-primary list-group-item-primary py-1 mb-1">
-                    <fa-icon [icon]="plusCircle"></fa-icon> Ingreso Parqueadero</button>
+                  <button routerLink="/detail-car" class="btn btn-outline-secondary list-group-item-success py-1 mb-1">
+                    <fa-icon [icon]="plusCircle"></fa-icon>
+                    Agregar Un Carro
+                  </button>
+                  <button routerLink="/detail-owner" class="btn btn-outline-secondary list-group-item-success py-1 mb-1">
+                    <fa-icon [icon]="plusCircle"></fa-icon>
+                    Agregar Un Propietario
+                  </button>
+                  <button routerLink="/add-parking" class="btn btn-outline-primary list-group-item-primary py-1 mb-1">
+                    <fa-icon [icon]="plusCircle"></fa-icon>
+                    Ingreso Parqueadero
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-body">
-              <h5 class="mb-0 text-primary font-weight-bold">{{local.occupiedPlaces}} <span class="float-end text-secondary">{{local.availableSpace}}</span></h5>
+              <h5 class="mb-0 text-primary font-weight-bold">{{local.occupiedPlaces}} <span
+                class="float-end text-secondary">{{local.availableSpace}}</span></h5>
               <p class="mb-0 mt-2"><span class="text-secondary">Ocupados</span><span class="float-end text-primary">Disponibles</span>
               </p>
               <div class="progress mt-3" style="height:7px;">
-                <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="{{local.occupiedPlaces + local.reservedPlaces}}" aria-valuemin="0" aria-valuemax="{{local.totalPlaces}}"></div>
+                <mat-progress-bar mode="determinate" value="{{progressBar()}}"></mat-progress-bar>
               </div>
               <div class="mt-3"></div>
               <div class="d-flex align-items-center">
@@ -43,34 +48,34 @@
                   <fa-icon [icon]="car"></fa-icon>
                 </div>
                 <div class="flex-grow-1 ms-2">
-                  <h6 class="mb-0">Cupos Ocupados</h6>
+                  <h5 class="mb-0">Cupos Ocupados</h5>
                 </div>
-                <h6 class="text-primary mb-0">{{local.occupiedPlaces}}</h6>
+                <h5 class="text-primary mb-0 ">{{local.occupiedPlaces}}</h5>
               </div>
               <div class="d-flex align-items-center mt-3">
                 <div class="fm-file-box bg-light-success text-danger">
                   <fa-icon [icon]="car"></fa-icon>
                 </div>
                 <div class="flex-grow-1 ms-2">
-                  <h6 class="mb-0">Cupos Reservados</h6>
+                  <h5 class="mb-0">Cupos Reservados</h5>
                 </div>
-                <h6 class="text-primary mb-0">{{local.reservedPlaces}}</h6>
+                <h5 class="text-primary mb-0">{{local.reservedPlaces}}</h5>
               </div>
               <div class="d-flex align-items-center mt-3">
                 <div class="fm-file-box bg-light-danger text-info">
                   <fa-icon [icon]="car"></fa-icon>
                 </div>
                 <div class="flex-grow-1 ms-2">
-                  <h6 class="mb-0">Total Cupos</h6>
+                  <h5 class="mb-0">Total Cupos</h5>
                 </div>
-                <h6 class="text-primary mb-0">{{local.totalPlaces}}</h6>
+                <h5 class="text-primary mb-0">{{local.totalPlaces}}</h5>
               </div>
             </div>
           </div>
         </div>
 
         <div class="col-12 col-lg-9">
-          <div class="card">
+          <div class="card shadow-lg">
             <div class="card-body">
               <div class="fm-search">
                 <div class="mb-0">
@@ -80,37 +85,53 @@
                   </div>
                 </div>
               </div>
-              <div class="row mt-3">
-                <div class="col-12 col-lg-4">
-                  <div class="card shadow-none border radius-15">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center">
-                        <div class="fm-icon-box radius-15 bg-info text-white">
-                          <fa-icon [icon]="car"></fa-icon>
+
+              <div *ngIf="doCars; else noCars">
+                <!--for-->
+                <div *ngFor="let parking of parkingCars">
+                  <!--card-->
+                  <div class="row mt-3">
+                    <div class="col-12 col-lg-4">
+                      <div class="card shadow-lg border radius-15 border-primary">
+                        <div class="card-body">
+                          <div class="d-flex align-items-center">
+                            <div class="fm-icon-box radius-15 text-white">
+                              <button mat-fab color="primary" (click)="openDialog(this.parking)" class="btn btn-outline-info shadow-none">
+                                <fa-icon [icon]="car"></fa-icon>
+                              </button>
+                            </div>
+                            <div class="ms-auto font-24">
+                              <button mat-fab color="accent" (click)="idPayParking(parking.id)" routerLink="/pay-parking" class="btn btn-outline-primary shadow-none">
+                                <fa-icon [icon]="money"></fa-icon>
+                              </button>
+                            </div>
+                          </div>
+                          <h4 class="mt-1 mb-0">Placa: {{parking.car.dniCar}}</h4>
+                          <p class="mb-1 mt-3"><span class="float-start">Ingreso</span> <span
+                            class="float-end">{{parking.startDate}}</span>
+                          </p>
+                          <div class="mt-5">
+                            <h4>Celda: {{parking.cell.id}}</h4>
+                          </div>
                         </div>
-                        <div class="ms-auto font-24">
-                          <button class="btn btn-outline-primary">
-                            <fa-icon [icon]="plusSquare"></fa-icon>
-                          </button>
-                        </div>
-                      </div>
-                      <h5 class="mt-1 mb-0">Placa del carro</h5>
-                      <p class="mb-1 mt-3"><span class="float-start">Ingreso</span>  <span class="float-end">Fecha</span>
-                      </p>
-                      <div class="mt-5">
-                        <h6>Celda localizado</h6>
                       </div>
                     </div>
                   </div>
+                  <!--card-->
                 </div>
+                <!--for-->
               </div>
+              <ng-template #noCars>
+                <h4 class="text-capitalize text-info m-4">
+                  No hay Vehiculos en el parqueadero en este momento
+                </h4>
+              </ng-template>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 
 
   <ng-template #loggedOut>

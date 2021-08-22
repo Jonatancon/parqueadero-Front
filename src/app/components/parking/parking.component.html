@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<div class="container text-center">
+  <div *ngIf="doSpace; else error" class="d-flex justify-content-center">
+    <div class="card shadow-lg border-info">
+      <div class="card-header">
+        <h2>Ingresar Al Parqueadero Un Vehiculo</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="m-sm-4">
+          <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+            <div class="form-group input-group mb-3">
+              <label class="input-group" for="dniCar">Placa del Vehiculo</label>
+              <span class="input-group-text"><fa-icon [icon]="addresCard"></fa-icon></span>
+              <input class="form-control form-control-lg" type="text" name="dniCar" id="dniCar"
+                     placeholder="Ingrese La Placa del Vehiculo" [(ngModel)]="dniCar" required="required">
+            </div>
+            <div class="form-group input-group mb-3">
+              <label class="input-group" >Celda A Escoger</label>
+              <span class="input-group-text" ><fa-icon [icon]="addresCard"></fa-icon></span>
+              <select class="form-control form-control-lg" name="cellSelect" id="cellSelect" [(ngModel)]="cellSelect">
+                <option *ngFor="let cell of cell" value="{{cell.id}}">{{cell.id}}</option>
+              </select>
+            </div>
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-primary btn-block btn-lg" [disabled]="!f.valid">
+                <fa-icon [icon]="register"></fa-icon> Ingresar al Parqueadero</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #error>
+    <h2>No hay espacios En el Paqueadero</h2>
+    <p>Por favor vuelva Despues para Ingresar El vehiculo</p>
+  </ng-template>
+</div>

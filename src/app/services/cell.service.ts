@@ -18,7 +18,7 @@ export class CellService {
   }
 
   public allActives(): Observable<Cell[]> {
-    return this.httpClient.get<Cell[]>(this.cellUrl + 'cell-actives');
+    return this.httpClient.get<Cell[]>(this.cellUrl + 'cell-active');
   }
 
   public update(cell: Cell): Observable<any> {

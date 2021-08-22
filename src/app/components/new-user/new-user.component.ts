@@ -38,14 +38,14 @@ export class NewUserComponent implements OnInit {
     this.authService.newUser(this.newUser).subscribe(
       data => {
         this.toaster.success(`${data.message()}`, 'OK', {
-          timeOut: 3000, positionClass: 'toast-top-center'
+          timeOut: 3000, positionClass: 'toast-bottom-right'
         });
         this.router.navigate(['/']);
       },
       err => {
         this.errorMessaje = err.error.message;
         this.toaster.success(`${this.errorMessaje}`, 'Fail', {
-          timeOut: 3000, positionClass: 'toast-top-center'
+          timeOut: 3000, positionClass: 'toast-bottom-right'
         });
       }
     );
