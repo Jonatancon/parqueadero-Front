@@ -3,13 +3,13 @@
 <div class="container text-center">
   <div *ngIf="isLogged; else loggedOut">
 
-    <div class="container">
+    <div *ngIf="isLoad; else loading" class="container">
       <div class="row">
         <div class="col-12 col-lg-3">
           <div class="card shadow-lg">
             <div class="card-body">
               <div class="d-grid">
-                <button routerLink="" class="btn btn-outline-primary">
+                <button routerLink="/config-parking" class="btn btn-outline-primary">
                   <fa-icon [icon]="plusSquare"></fa-icon>
                   Configurar Parqueadero
                 </button>
@@ -131,6 +131,10 @@
         </div>
       </div>
     </div>
+
+    <ng-template #loading>
+      <mat-spinner></mat-spinner>
+    </ng-template>
   </div>
 
 

@@ -10,10 +10,12 @@ import {CarComponent} from "./components/car/car.component";
 import {OwnerComponent} from "./components/owner/owner.component";
 import {ParkingComponent} from "./components/parking/parking.component";
 import {PayComponent} from "./components/pay/pay.component";
+import {LocalComponent} from "./components/local/local.component";
 
 
 const routes: Routes = [
   {path: '', component: IndexComponent},
+  {path: 'config-parking', component: LocalComponent, canActivate: [ProdGuardService], data: {expectedRol: ['admin']}},
   {path: 'pay-parking', component: PayComponent, canActivate: [ProdGuardService], data: {expectedRol: ['admin']}},
   {path: 'add-parking', component: ParkingComponent, canActivate: [ProdGuardService], data: {expectedRol: ['admin']}},
   {path: 'detail-owner', component: OwnerComponent, canActivate: [ProdGuardService], data: {expectedRol: ['admin']}},

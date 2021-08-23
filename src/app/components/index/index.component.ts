@@ -20,6 +20,7 @@ export class IndexComponent implements OnInit {
 
   isLogged = false;
   doCars = false;
+  isLoad = false;
 
   plusSquare = faPlusSquare;
   money = faMoneyCheck;
@@ -59,9 +60,11 @@ export class IndexComponent implements OnInit {
       data => {
         this.parkingCars = data;
         this.doCars = true;
+        this.isLoad = true;
       },
       error => {
         this.doCars = false;
+        this.isLoad = false;
       }
     );
   }

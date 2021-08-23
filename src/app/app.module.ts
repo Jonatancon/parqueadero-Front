@@ -26,6 +26,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import { LocalComponent } from './components/local/local.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {MatSelectModule} from "@angular/material/select";
     CarComponent,
     OwnerComponent,
     ParkingComponent,
-    PayComponent
+    PayComponent,
+    LocalComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+
+<div class="container text-center">
+  <div *ngIf="isLoad; else load" class="d-flex justify-content-center">
+    <div class="card shadow-lg border-info">
+      <div class="card-header">
+        <h2>Modificar Datos del Local</h2>
+      </div>
+      <div class="card-body">
+        <div class="m-sm-4">
+          <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
+            <div class="form-group input-group mb-3">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label><fa-icon [icon]="addresCard"></fa-icon> Cupos Del Parqueadero</mat-label>
+                <input class="" type="number" name="newCupos" id="newCupos"
+                       matInput placeholder="Cupos Actuales: {{local.totalPlaces}}" [(ngModel)]="newCupos" required="required">
+              </mat-form-field>
+            </div>
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-primary btn-block btn-lg" [disabled]="!f.valid">
+                <fa-icon [icon]="register"></fa-icon> Actualizar Local</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #load>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+
+</div>

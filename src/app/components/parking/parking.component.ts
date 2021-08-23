@@ -63,6 +63,9 @@ export class ParkingComponent implements OnInit {
     this.localService.detail(1).subscribe(
       data => {
         this.local = data;
+        if (this.local.availableSpace == 0) {
+          this.doSpace = false;
+        }
       }
     );
   }
@@ -119,7 +122,6 @@ export class ParkingComponent implements OnInit {
     this.cellService.getCell(this.cellSelect).subscribe(
       data => {
         this.cellIsSelect = data;
-        //console.log(this.cellIsSelect);
       }
     );
   }
