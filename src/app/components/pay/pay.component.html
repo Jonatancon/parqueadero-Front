@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="page-content container">
+  <div *ngIf="done; else load" class="page-content container">
     <div class="page-header text-blue-d2">
       <div class="container px-0">
         <div class="row mt-4">
@@ -20,11 +20,11 @@
               <div class="col-sm-6">
                 <div>
                   <span class="text-sm text-grey-m2 align-middle">Para: </span>
-                  <span class="text-600 text-110 text-blue align-middle">Nombre propietario</span>
+                  <span class="text-600 text-110 text-blue align-middle">{{parking.car.owner.name}}</span>
                 </div>
                 <div class="text-grey-m2">
                   <div class="my-1">
-                    Identificacion: C.C: #Numero
+                    Identificacion: C.C: {{parking.car.owner.dni}}
                   </div>
                 </div>
               </div>
@@ -39,12 +39,12 @@
 
                   <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                     class="text-600 text-90">Placa:</span>
-                    #Placa Carro
+                    {{parking.car.dniCar}}
                   </div>
 
                   <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
                     class="text-600 text-90">Tipo Contrato:</span>
-                    Nombre del Contrato
+                    {{parking.car.contract.name}}
                   </div>
 
                   <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span
@@ -73,11 +73,11 @@
                 <tbody class="text-95 text-secondary-d3">
                 <tr></tr>
                 <tr>
-                  <td>1</td>
-                  <td>Star Fecha</td>
-                  <td>Final Fecha</td>
-                  <td>10 min</td>
-                  <td>COP $20</td>
+                  <td>{{parking.id}}</td>
+                  <td>{{parking.startDate}}</td>
+                  <td>{{parking.finalDate}}</td>
+                  <td>{{minutes}} minutos</td>
+                  <td>COP ${{valor}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -94,7 +94,7 @@
                     SubTotal
                   </div>
                   <div class="col-5">
-                    <span class="text-120 text-secondary-d1">COP $2,250</span>
+                    <span class="text-120 text-secondary-d1">COP ${{valor}}</span>
                   </div>
                 </div>
 
@@ -112,7 +112,7 @@
                     Total A Pagar
                   </div>
                   <div class="col-5">
-                    <span class="text-150 text-success-d3 opacity-2">COP $2,475</span>
+                    <span class="text-150 text-success-d3 opacity-2">COP ${{valor}}</span>
                   </div>
                 </div>
               </div>
@@ -122,12 +122,16 @@
             <div>
               <span class="text-secondary-d1 text-105">Gracias Por Preferirnos...</span>
             </div>
-            <button mat-raised-button color="primary" >Pagar Ahora</button>
+            <button (click)="updateLocal()"  mat-raised-button color="primary" >Pagar Ahora</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <ng-template class="align-content-center justify-content-center" #load>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</div>
 
 

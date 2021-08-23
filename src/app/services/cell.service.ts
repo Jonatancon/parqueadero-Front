@@ -24,4 +24,8 @@ export class CellService {
   public update(cell: Cell): Observable<any> {
     return this.httpClient.post<any>(this.cellUrl + 'cell-update', cell);
   }
+
+  public getCell(id: number): Observable<Cell> {
+    return this.httpClient.get<Cell>(this.cellUrl + `find-cell/${id}`);
+  }
 }

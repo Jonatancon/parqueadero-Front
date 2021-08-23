@@ -88,10 +88,10 @@
 
               <div *ngIf="doCars; else noCars">
                 <!--for-->
-                <div *ngFor="let parking of parkingCars">
+                <div>
                   <!--card-->
                   <div class="row mt-3">
-                    <div class="col-12 col-lg-4">
+                    <div *ngFor="let parking of parkingCars" class="col-12 col-lg-4">
                       <div class="card shadow-lg border radius-15 border-primary">
                         <div class="card-body">
                           <div class="d-flex align-items-center">

@@ -11,16 +11,18 @@
         <div class="m-sm-4">
           <form #f="ngForm" (ngSubmit)="onRegister()" novalidate>
             <div class="form-group input-group mb-3">
-              <label class="input-group" for="dni">Dni</label>
-              <span class="input-group-text"><fa-icon [icon]="addresCard"></fa-icon></span>
-              <input class="form-control form-control-lg" type="text" name="dni" id="dni"
-                     placeholder="Ingrese su dni" [(ngModel)]="dni" required="required">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label><fa-icon [icon]="addresCard"></fa-icon> Dni</mat-label>
+                <input class="" type="text" name="dni" id="dni"
+                       matInput placeholder="Ingrese su dni" [(ngModel)]="dni" required="required">
+              </mat-form-field>
             </div>
             <div class="form-group input-group mb-3">
-              <label class="input-group" for="name">Name</label>
-              <span class="input-group-text" ><fa-icon [icon]="addresCard"></fa-icon></span>
-              <input class="form-control form-control-lg" type="text" name="name" id="name"
-                     placeholder="Ingrese su nombre" [(ngModel)]="name">
+              <mat-form-field class="w-100" appearance="outline">
+                <mat-label><fa-icon [icon]="addresCard"></fa-icon> Name</mat-label>
+                <input class="" type="text" name="name" id="name"
+                       matInput placeholder="Ingrese su nombre" [(ngModel)]="name" required>
+              </mat-form-field>
             </div>
             <div class="text-center mt-3">
               <button class="btn btn-outline-primary btn-block btn-lg" [disabled]="!f.valid">

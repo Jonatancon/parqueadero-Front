@@ -26,6 +26,7 @@ export class ParkingComponent implements OnInit {
   doSpace = true;
 
   cell: Cell[] = [];
+  cellIsSelect: Cell = null;
   parking: Parking;
   car: Car = null;
   local: Local = null;
@@ -67,8 +68,8 @@ export class ParkingComponent implements OnInit {
   }
 
   updateLocal(): void {
-    this.cell[this.cellSelect - 1].ocupado = true;
-    this.cellService.update(this.cell[this.cellSelect - 1]).subscribe();
+    this.cellIsSelect.ocupado = true;
+    this.cellService.update(this.cellIsSelect).subscribe();
 
     this.local.occupiedPlaces += 1;
     this.local.availableSpace -= 1;
@@ -76,10 +77,10 @@ export class ParkingComponent implements OnInit {
   }
 
   registerParking(): void {
-    this.parking = new Parking(null, this.car, this.cell[this.cellSelect-1], true);
+    this.parking = new Parking(null, this.car, this.cellIsSelect, true);
     this.parkingService.save(this.parking).subscribe(
       data => {
-        this.toaster.success(`Vehiculo agregado al parqueadero`, 'Fail', {
+        this.toaster.success(`Vehiculo agregado al parqueadero`, 'OK', {
           timeOut: 3000, positionClass: 'toast-bottom-right'
         });
         this.router.navigate(['/']);
@@ -112,6 +113,15 @@ export class ParkingComponent implements OnInit {
       this.registerParking();
       this.updateLocal();
     });
+  }
+
+  cargarCelda(): void{
+    this.cellService.getCell(this.cellSelect).subscribe(
+      data => {
+        this.cellIsSelect = data;
+        //console.log(this.cellIsSelect);
+      }
+    );
   }
 
 }
