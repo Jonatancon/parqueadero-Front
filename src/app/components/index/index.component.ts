@@ -28,7 +28,7 @@ export class IndexComponent implements OnInit {
   car = faCar;
   search = faSearchLocation;
 
-  local: Local = new Local(0,0,0,0,0);
+  local: Local = null;
   parkingCars: Parking[] = [];
 
   constructor(
@@ -64,7 +64,11 @@ export class IndexComponent implements OnInit {
       },
       error => {
         this.doCars = false;
-        this.isLoad = false;
+        if (this.local.id == null) {
+          this.isLoad = false;
+        }else {
+          this.isLoad = true;
+        }
       }
     );
   }

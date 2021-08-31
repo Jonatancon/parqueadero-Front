@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.errorMessaje = err.error.message;
-        this.toaster.error(`${this.errorMessaje}`, 'Fail', {
+        this.toaster.error(`Usuario ${this.errorMessaje}`, 'Fail', {
           timeOut: 3000, positionClass: 'toast-bottom-right'
         });
       }
